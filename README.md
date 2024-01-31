@@ -1,62 +1,22 @@
-# Demonstrations for DSS : Digital Signature Service
+# Integração de novas funcionalidades da DSS Demo Webapp
 
-This is the demonstration repository for project DSS : https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/eSignature. 
+Este projeto foi realizado no âmbito da Unidade Curricular de Engenharia de Segurança, integrada no perfil de Criptografia e Segurança da Informação.
 
-# Issue Tracker
+## Introdução
 
-Please, use the new JIRA for project is on https://ec.europa.eu/digital-building-blocks/tracker/projects/DSS/issues. 
+Este projeto pretende tornar a aplicação mais completa do ponto de vista de opções para assinaturas digitais. Assim, as funcionalidades implementadas na aplicação web são as seguintes:
 
-# Maven repository
+- Transpor as alterações realizadas anteriormente na versão antiga da DSS Demo WebApp para a versão mais recente, a fim de continuar a suportar a utilização com:
 
-The release is published on DIGITAL repository : 
+1. Cartão de Cidadão;
+1. Chave Móvel Digital;
+1. A fonte de timestamp do Cartão de Cidadão, de modo a não se utilizar a 'dummy timestamp source' que é empregada nas várias opções da Demo WebApp que utilizam timestamp.
 
-https://ec.europa.eu/digital-building-blocks/artifact/#welcome
+- Adição de uma interface de autenticação inicial para realizar o login com usuário e senha;
+- Integração de uma área de usuário, acessível apenas após a autenticação inicial, onde o usuário pode definir o número de telemóvel utilizado para a Chave Móvel Digital. Este número deve ser armazenado na Base de Dados;
+- Sempre que o usuário realizar uma operação que utilize a Chave Móvel Digital, o número armazenado na Base de Dados para o respectivo usuário deve ser usado automaticamente;
+- Por último, a possibilidade de assinar com chaves privadas (e respectivos certificados na hierarquia até à Entidade de Certificação raiz) em arquivo (formato DER), especificamente na funcionalidade de 'Sign a digest' nas opções de assinatura.
 
-<pre>
-&lt;repository&gt;
-  &lt;id&gt;cefdigital&lt;/id&gt;
-  &lt;name&gt;cefdigital&lt;/name&gt;
-  &lt;url&gt;https://ec.europa.eu/digital-building-blocks/artifact/content/repositories/esignaturedss/&lt;/url&gt;
-&lt;/repository&gt;
-</pre>
+Adicionalmente, com a implementação destes pontos, foi dotada a aplicação web de suporte para a utilização da Chave Móvel Digital (CMD). A CMD, que é um dos padrões de assinatura e autenticação digital adotados pelo governo de Portugal, possui o mesmo valor legal que uma assinatura manuscrita e é reconhecida na União Europeia. Portugal, como membro da UE, segue as normas de Assinaturas Eletrónicas Avançadas (AdES) referidas pela ETSI (European Telecommunications Standards Institute) e aceita outros padrões de assinatura e autenticação digital.
 
-# Demonstration
-
-The release is deployed on https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo
-
-# DSS Standalone Application
-
-In order to build the standalone application, the following modules are required:
-
- * dss-mock-tsa;
- * dss-standalone-app;
- * dss-standalone-package.
- 
-If the build is successful, you will be able to find out the following containers in the directory `/dss-standalone-app-package/target/`:
-
- * dss-standalone-app-package-minimal.zip - contains the application code. Requires JDK ad JavaFX installed on a target machine in order to run the application;
- * dss-standalone-app-package-complete.zip - contains the application code, as well as JDK and JavaFX library code. Can be run on a machine whithout pre-installed libraries.
-
-In order to launch the application, you will need to extract the archive and run the file `dss-run.bat`.
-
-# DSS Web Application
-
-To build the DSS Web Application the following modules are required:
-
- * dss-mock-tsa;
- * dss-demo-webapp;
- * dss-demo-bundle.
- 
-After a successful build, in the directory `/dss-demo-bundle/target/` you will be able to find out two containers: `dss-demo-bundle.zip` and `dss-demo-bundle.tar.gz`. Despite the container type, the content of both files is the same. After extracting the content, you will need to run the file `Webapp-Startup.bat` in order to launch the server and the file `Webapp-Shutdown.bat` to stop the server. After running the server, the web-application will be available at the address `http://localhost:8080/`.
-
-# JavaDoc
-
-The JavaDoc is available on https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo/apidocs/index.html
-
-# Ready-to-use bundles
-
-Bundles which contain the above demonstration can be downloaded from the [Maven repository](https://ec.europa.eu/digital-building-blocks/artifact/service/rest/repository/browse/esignaturedss/eu/europa/ec/joinup/sd-dss/dss-demo-bundle/).
-
-The code of the demonstration can be found on https://ec.europa.eu/digital-building-blocks/code/projects/ESIG/repos/dss-demos/browse
-
-[![License (LGPL version 2.1)](https://img.shields.io/badge/license-GNU%20LGPL%20version%202.1-blue.svg?style=flat-square)](https://www.gnu.org/licenses/lgpl-2.1.html)
+Importa ainda salientar que, para além das funcionalidades descritas, e com o objetivo de melhorar a segurança do software, é necessário assegurar o uso de metodologias de software seguro. Destaca-se o processo de desenvolvimento de software criado pela Microsoft, o Microsoft Security Development Lifecycle (SDL). Este processo consiste numa série de práticas recomendadas e ferramentas que se concentram em segurança e privacidade, e são incorporadas em todas as fases do processo de desenvolvimento do software.
